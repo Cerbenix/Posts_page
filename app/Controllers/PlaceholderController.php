@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 
+use App\Models\Comment;
 use App\Services\ApiClient;
 use App\Views\View;
 
@@ -32,6 +33,12 @@ class PlaceholderController
         $userId = $article->getUserId();
         $user = $this->apiClient->fetchUser((string)$userId);
         $comments = $this->apiClient->fetchArticleComments($articleId);
+        if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['body'])) {
+            $name = $_POST['name'];
+            $email = $_POST['email'];
+            $body = $_POST['body'];
+            $comments[] = new Comment((int)$articleId, count($comments) + 1, $name, $email, $body);
+        }
         return new View('article', [
             'article' => $article,
             'user' => $user,

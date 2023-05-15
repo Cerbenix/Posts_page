@@ -7,7 +7,8 @@
     flex-direction: column;
     border-radius: 15px;
     background-color: #3a3a3a;
-    margin: 20px 100px 20px 100px;
+    margin: 20px;
+    max-width: 1400px;
     padding: 30px;
 }
 .article-page-content{
@@ -25,8 +26,14 @@
 .article-page-content h1 {
     color: #0ebbad;
     font-size: 40px;
+    margin: 0;
 }
 .content-body {
+    font-size: 24px;
+    margin-left: 20px;
+}
+.partition{
+    color: white;
     font-size: 24px;
 }
 .comment-container{
@@ -35,10 +42,63 @@
     border-radius: 15px;
     background-color: #565656;
 }
-.user-info-container {
+.user-info-container{
     display: flex;
-    flex-direction: column;
+    align-items: center;
+
+}
+.user-info-container img{
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.user-name{
+    font-size: 20px;
+}
+.user-email{
+    font-size: 14px;
+    color: gray;
+    padding-left: 10px;
 }
 .comment {
     font-size: 20px;
+}
+.comment-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+.form-sub-container{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+.comment-form label {
+    color: white;
+    padding:5px;
+    font-size: 16px;
+}
+.comment-form input{
+    display: flex;
+    width: 300px;
+    border-radius: 5px;
+    border: none;
+    font-size: 20px;
+}
+.comment-form textarea {
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    margin-bottom: 10px;
+}
+.comment-form button {
+    display: flex;
+    align-self: center;
+    font-size: 25px;
+    color: black;
+    border-radius: 8px;
+    padding: 5px;
+    background-color: #dadada;
+    text-decoration: none;
+    border: solid 3px #3a3a3a;
+    box-shadow: 0 0 20px #3b3b3b;
 }

@@ -19,18 +19,22 @@
         <article class="article-card">
             <div class="img-container">
                 <a href="/article/{{ content.getArticle().getId() }}">
-                    <img src="https://placehold.co/300" alt="">
+                    <img src="https://placehold.co/250" alt="">
                 </a>
             </div>
             <div class="content-container">
                 <div class="content">
                     <a class="link" href="/article/{{ content.getArticle().getId() }}">
-                        <h2>{{ content.getArticle().getTitle() }}</h2>
+                        <h2>{{ content.getArticle().getTitle()|capitalize }}</h2>
                     </a>
+                    <p class="preview">
+                        {{ content.getArticle().getBody()|slice(0,50)|capitalize }}...
+                    </p>
                 </div>
                 <div class="content">
                     <span class="constant-grey">Written by:</span>
                     <a class="link" href="/user/{{ content.getUser().getId() }}">
+                        <img src="https://placehold.co/40" alt="">
                         {{ content.getUser().getUserName() }}
                     </a>
                 </div>

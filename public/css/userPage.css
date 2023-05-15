@@ -6,7 +6,15 @@
     background-color: #3a3a3a;
     box-shadow: 0 0 10px #3b3b3b;
     padding: 15px;
-    width: 350px;
+    width: 400px;
+    position: relative;
+}
+
+.user-image {
+    position: absolute;
+    border-radius: 50%;
+    top: 10px;
+    right: -75px;
 }
 
 .content {
@@ -18,7 +26,6 @@
 .user-info {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     color: white;
     font-size: 20px;
     padding-left: 10px;
@@ -36,7 +43,7 @@
 
 .article-card {
     display: flex;
-    width: 800px;
+    width: 650px;
     border-radius: 15px;
     background-color: #3a3a3a;
     margin: 20px;
@@ -58,3 +65,4 @@
     flex-direction: column;
     justify-content: space-evenly;
 }
+
