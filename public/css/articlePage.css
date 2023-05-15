@@ -1,0 +1,44 @@
+.comment, .user-email, .user-name, .content-body{
+    color: white;
+}
+
+.article-page {
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    background-color: #3a3a3a;
+    margin: 20px 100px 20px 100px;
+    padding: 30px;
+}
+.article-page-content{
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+}
+.article-page-img-container {
+    display: flex;
+    justify-content: center;
+}
+.article-page-img-container img{
+    border-radius: 15px;
+}
+.article-page-content h1 {
+    color: #0ebbad;
+    font-size: 40px;
+}
+.content-body {
+    font-size: 24px;
+}
+.comment-container{
+    padding: 30px;
+    margin: 20px;
+    border-radius: 15px;
+    background-color: #565656;
+}
+.user-info-container {
+    display: flex;
+    flex-direction: column;
+}
+.comment {
+    font-size: 20px;
+}

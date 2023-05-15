@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Placeholder Page</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/articlePage.css">
+</head>
+<body>
+<header class="header-container">
+    <a class="header-title" href="/">Placeholder</a>
+</header>
+<main class="layout">
+    <article class="article-page">
+        <div class="article-page-img-container">
+            <img src="https://placehold.co/600x400" alt="">
+        </div>
+        <div class="article-page-content-container">
+            <div class="article-page-content">
+                <span class="constant-grey"> Written by:</span>
+                <a class="link" href="/user/{{ user.getId() }}">{{ user.getName() }}</a>
+                <h1>{{ article.getTitle() }}</h1>
+                <p class="content-body">{{ article.getBody() }}</p>
+            </div>
+            {% for comment in comments %}
+                <div class="comment-container">
+                    <div class="user-info-container">
+                    <span class="constant-grey">
+                        Username: {{ comment.getName() }}
+                    </span>
+                        <span class="constant-grey">
+                        Email: {{ comment.getEmail() }}
+                    </span>
+                    </div>
+                    <div class="comment-content">
+                        <p class="comment">{{ comment.getBody() }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </article>
+</main>
+</body>
+</html>

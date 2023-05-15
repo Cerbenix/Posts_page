@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    padding-top: 100px;
+    background-color: #565656;
+    max-width: 1900px;
+    margin: auto;
+}
+
+.layout {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.link {
+    text-decoration: none;
+    color: white;
+    font-size: 24px;
+    padding: 5px 20px 5px 5px;
+}
+.link h2 {
+    margin: 0;
+}
+.link:hover {
+    color: #ff8400;
+}
+.constant-grey {
+    color: #919191;
+    font-size: 18px;
+    padding-bottom: 5px;
+}

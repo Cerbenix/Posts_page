@@ -1,0 +1,60 @@
+.user-card {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 15px;
+    background-color: #3a3a3a;
+    box-shadow: 0 0 10px #3b3b3b;
+    padding: 15px;
+    width: 350px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+.partition {
+    color: white;
+    display: flex;
+    justify-content: center;
+    background-color: #3a3a3a;
+    box-shadow: 0 0 10px #3b3b3b;
+    padding: 5px;
+    margin: 25px 50px 10px 50px;
+}
+
+.article-card {
+    display: flex;
+    width: 800px;
+    border-radius: 15px;
+    background-color: #3a3a3a;
+    margin: 20px;
+    height: 200px;
+    box-shadow: 0 0 10px #3b3b3b;
+}
+
+.img-container {
+    margin-right: 20px;
+}
+
+.img-container img {
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}

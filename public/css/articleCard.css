@@ -1,0 +1,30 @@
+.article-card {
+    display: flex;
+    width: 800px;
+    border-radius: 15px;
+    background-color: #3a3a3a;
+    margin: 20px;
+    height: 300px;
+    box-shadow: 0 0 10px #3b3b3b;
+}
+
+.img-container {
+    margin-right: 20px;
+}
+
+.img-container img {
+    border-bottom-left-radius: 15px;
+    border-top-left-radius: 15px;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+}
+

@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Placeholder Page</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/articleCard.css">
+</head>
+<body>
+<header class="header-container">
+    <a class="header-title" href="/">Placeholder</a>
+</header>
+<main class="layout">
+    {% for content in contents %}
+        <article class="article-card">
+            <div class="img-container">
+                <a href="/article/{{ content.getArticle().getId() }}">
+                    <img src="https://placehold.co/300" alt="">
+                </a>
+            </div>
+            <div class="content-container">
+                <div class="content">
+                    <a class="link" href="/article/{{ content.getArticle().getId() }}">
+                        <h2>{{ content.getArticle().getTitle() }}</h2>
+                    </a>
+                </div>
+                <div class="content">
+                    <span class="constant-grey">Written by:</span>
+                    <a class="link" href="/user/{{ content.getUser().getId() }}">
+                        {{ content.getUser().getUserName() }}
+                    </a>
+                </div>
+            </div>
+        </article>
+    {% endfor %}
+</main>
+</body>
+</html>
