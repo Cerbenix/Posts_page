@@ -8,8 +8,7 @@ class Cache
 {
     public static function save(string $key, string $data, int $ttl = 120): void
     {
-        $cacheFile = '../cache/' . $key;
-
+        $cacheFile = realpath(__DIR__ . '/../cache') . '/' . $key;
         file_put_contents($cacheFile, json_encode([
             'expires_at' => Carbon::now()->addSeconds($ttl),
             'data' => $data
@@ -18,7 +17,7 @@ class Cache
 
     public static function delete(string $key): void
     {
-        unlink('../cache/' . $key);
+        unlink(realpath(realpath(__DIR__ . '/../cache') . '/' . $key));
     }
 
     public static function get(string $key): ?string
@@ -26,17 +25,17 @@ class Cache
         if (!self::has($key)) {
             return null;
         }
-        $content = json_decode(file_get_contents('../cache/' . $key));
+        $content = json_decode(file_get_contents(realpath(__DIR__ . '/../cache') . '/' . $key));
 
         return $content->data;
     }
 
     public static function has(string $key): bool
     {
-        if (!file_exists('../cache/' . $key)) {
+        if (!file_exists(realpath(__DIR__ . '/../cache') . '/' . $key)) {
             return false;
         }
-        $content = json_decode(file_get_contents('../cache/' . $key));
+        $content = json_decode(file_get_contents(realpath(__DIR__ . '/../cache') . '/' . $key));
         return Carbon::now() < Carbon::parse($content->expires_at);
     }
 }

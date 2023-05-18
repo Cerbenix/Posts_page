@@ -49,7 +49,7 @@ class ApiClient
         return $articleCollection;
     }
 
-    public function fetchArticle(string $articleId): Article
+    public function fetchArticle(int $articleId): Article
     {
         $cacheKey = 'article_' . $articleId;
         $report = $this->fetchFromApi('posts/' . $articleId, $cacheKey);
@@ -83,14 +83,14 @@ class ApiClient
         return $userCollection;
     }
 
-    public function fetchUser(string $userId): User
+    public function fetchUser(int $userId): User
     {
         $cacheKey = 'user_' . $userId;
         $report = $this->fetchFromApi('users/' . $userId, $cacheKey);
         return $this->createUser($report);
     }
 
-    public function fetchUserArticles(string $userId): array
+    public function fetchUserArticles(int $userId): array
     {
         $userArticleCollection = [];
         $cacheKey = 'user_posts_' . $userId;
@@ -101,7 +101,7 @@ class ApiClient
         return $userArticleCollection;
     }
 
-    public function fetchArticleComments(string $articleId): array
+    public function fetchArticleComments(int $articleId): array
     {
         $commentCollection = [];
         $cacheKey = 'comments_for_article_' . $articleId;
