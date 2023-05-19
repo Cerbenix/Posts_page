@@ -23,7 +23,7 @@ switch ($command){
             \App\Console\Commands\InvalidCommand::execute();
             break;
         }
-        $userCommand = new \App\Console\Commands\UserCommand(new \App\Services\User\Index\IndexUserService());
+        $userCommand = new \App\Console\Commands\UserCommand();
         $userCommand->execute($id);
     break;
     default:

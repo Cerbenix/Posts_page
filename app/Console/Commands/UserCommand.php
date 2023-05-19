@@ -10,9 +10,9 @@ class UserCommand
 {
     private IndexUserService $userService;
 
-    public function __construct(IndexUserService $userService)
+    public function __construct()
     {
-        $this->userService = $userService;
+        $this->userService = new IndexUserService();
     }
 
     public function execute(int $userId): void
