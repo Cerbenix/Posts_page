@@ -25,7 +25,13 @@ class ArticleController
         try {
             $articleId = (int)$variables['id'];
             $service = new ShowArticleService();
-            $response = $service->execute(new ShowArticleRequest($articleId));
+            $request = new ShowArticleRequest($articleId);
+            if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['body'])) {
+                $request->setCommentName($_POST['name']);
+                $request->setCommentEmail($_POST['email']);
+                $request->setCommentBody($_POST['body']);
+            }
+            $response = $service->execute($request);
             return new View('article', [
                 'article' => $response->getArticle(),
                 'user' => $response->getUser(),

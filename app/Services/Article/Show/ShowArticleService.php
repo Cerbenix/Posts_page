@@ -3,28 +3,37 @@
 namespace App\Services\Article\Show;
 
 use App\Models\Comment;
-use App\Services\ApiClient;
+use App\Repositories\Article\JsonPlaceholderArticleRepository;
+use App\Repositories\Comment\JsonPlaceholderCommentRepository;
+use App\Repositories\User\JsonPlaceholderUserRepository;
 
 class ShowArticleService
 {
-    private ApiClient $apiClient;
+    private JsonPlaceholderArticleRepository $articleRepository;
+    private JsonPlaceholderUserRepository $userRepository;
+    private JsonPlaceholderCommentRepository $commentRepository;
 
     public function __construct()
     {
-        $this->apiClient = new ApiClient();
+        $this->articleRepository = new JsonPlaceholderArticleRepository();
+        $this->userRepository = new JsonPlaceholderUserRepository();
+        $this->commentRepository = new JsonPlaceholderCommentRepository();
     }
 
     public function execute(ShowArticleRequest $request): ShowArticleResponse
     {
-        $article = $this->apiClient->fetchArticle($request->getArticleId());
+        $article = $this->articleRepository->getById($request->getArticleId());
         $userId = $article->getUserId();
-        $user = $this->apiClient->fetchUser($userId);
-        $comments = $this->apiClient->fetchArticleComments($request->getArticleId());
-        if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['body'])) {
-            $name = $_POST['name'];
-            $email = $_POST['email'];
-            $body = $_POST['body'];
-            $comments[] = new Comment($request->getArticleId(), count($comments) + 1, $name, $email, $body);
+        $user = $this->userRepository->getById($userId);
+        $comments = $this->commentRepository->getByArticleId($request->getArticleId());
+        if($request->getCommentName() != null){
+            $comments[] = new Comment(
+                $request->getArticleId(),
+                count($comments) + 1,
+                $request->getCommentName(),
+                $request->getCommentEmail(),
+                $request->getCommentBody()
+            );
         }
         return new ShowArticleResponse($article, $user, $comments);
     }

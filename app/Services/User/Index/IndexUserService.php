@@ -2,21 +2,24 @@
 
 namespace App\Services\User\Index;
 
-use App\Services\ApiClient;
+use App\Repositories\Article\JsonPlaceholderArticleRepository;
+use App\Repositories\User\JsonPlaceholderUserRepository;
 
 class IndexUserService
 {
-    private ApiClient $apiClient;
+    private JsonPlaceholderArticleRepository $articleRepository;
+    private JsonPlaceholderUserRepository $userRepository;
 
     public function __construct()
     {
-        $this->apiClient = new ApiClient();
+        $this->articleRepository = new JsonPlaceholderArticleRepository();
+        $this->userRepository = new JsonPlaceholderUserRepository();
     }
 
     public function execute(IndexUserRequest $request): IndexUserResponse
     {
-        $user = $this->apiClient->fetchUser($request->getUserId());
-        $userArticles = $this->apiClient->fetchUserArticles($request->getUserId());
+        $user = $this->userRepository->getById($request->getUserId());
+        $userArticles = $this->articleRepository->getByUserId($request->getUserId());
         return new IndexUserResponse($user, $userArticles);
     }
 }
