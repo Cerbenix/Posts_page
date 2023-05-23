@@ -25,7 +25,7 @@ class IndexArticleService
         shuffle($allArticles);
         $articles = array_slice($allArticles, 0, 20);
         $users = $this->userRepository->all();
-        $contents = $this->articleRepository->associateUser($users, $articles);
+        $contents = $this->articleRepository->associateUsers($users, $articles);
         return new IndexArticleResponse($contents);
     }
 }

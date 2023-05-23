@@ -63,7 +63,7 @@ class JsonPlaceholderArticleRepository implements ArticleRepository
         return $userArticleCollection;
     }
 
-    public function associateUser(array $users, array $articles): array
+    public function associateUsers(array $users, array $articles): array
     {
         $associatedList = [];
         foreach ($articles as $article) {
