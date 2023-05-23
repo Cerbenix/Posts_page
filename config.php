@@ -1,9 +1,8 @@
 <?php declare(strict_types=1);
 
 return [
-    'articleRepository' => \DI\create(\App\Repositories\Article\JsonPlaceholderArticleRepository::class),
-    'userRepository' => \DI\create(\App\Repositories\User\JsonPlaceholderUserRepository::class),
-    'commentRepository' => \DI\create(\App\Repositories\Comment\JsonPlaceholderCommentRepository::class),
-
+    \App\Repositories\Article\ArticleRepository::class => new \App\Repositories\Article\JsonPlaceholderArticleRepository,
+    \App\Repositories\User\UserRepository::class => new \App\Repositories\User\JsonPlaceholderUserRepository,
+    \App\Repositories\Comment\CommentRepository::class => new \App\Repositories\Comment\JsonPlaceholderCommentRepository,
     ];
 

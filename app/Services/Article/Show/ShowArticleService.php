@@ -3,20 +3,21 @@
 namespace App\Services\Article\Show;
 
 use App\Models\Comment;
-use App\Repositories\Article\JsonPlaceholderArticleRepository;
-use App\Repositories\Comment\JsonPlaceholderCommentRepository;
-use App\Repositories\User\JsonPlaceholderUserRepository;
+use App\Repositories\Article\ArticleRepository;
+use App\Repositories\Comment\CommentRepository;
+
+use App\Repositories\User\UserRepository;
 
 class ShowArticleService
 {
-    private JsonPlaceholderArticleRepository $articleRepository;
-    private JsonPlaceholderUserRepository $userRepository;
-    private JsonPlaceholderCommentRepository $commentRepository;
+    private ArticleRepository $articleRepository;
+    private UserRepository $userRepository;
+    private CommentRepository $commentRepository;
 
     public function __construct(
-        JsonPlaceholderArticleRepository $articleRepository,
-        JsonPlaceholderUserRepository $userRepository,
-        JsonPlaceholderCommentRepository $commentRepository
+        ArticleRepository $articleRepository,
+        UserRepository $userRepository,
+        CommentRepository $commentRepository
     ) {
         $this->articleRepository = $articleRepository;
         $this->userRepository = $userRepository;

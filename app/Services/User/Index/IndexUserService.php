@@ -2,17 +2,17 @@
 
 namespace App\Services\User\Index;
 
-use App\Repositories\Article\JsonPlaceholderArticleRepository;
-use App\Repositories\User\JsonPlaceholderUserRepository;
+use App\Repositories\Article\ArticleRepository;
+use App\Repositories\User\UserRepository;
 
 class IndexUserService
 {
-    private JsonPlaceholderArticleRepository $articleRepository;
-    private JsonPlaceholderUserRepository $userRepository;
+    private ArticleRepository $articleRepository;
+    private UserRepository $userRepository;
 
     public function __construct(
-        JsonPlaceholderArticleRepository $articleRepository,
-        JsonPlaceholderUserRepository $userRepository)
+        ArticleRepository $articleRepository,
+        UserRepository $userRepository)
     {
         $this->articleRepository = $articleRepository;
         $this->userRepository = $userRepository;
