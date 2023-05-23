@@ -2,9 +2,18 @@
 
 namespace App\Console;
 
+use DI\Container;
+
 class Router
 {
-    public static function run(string $command, ?int $id): void
+    private Container $container;
+
+    public function __construct(Container $container)
+    {
+        $this->container = $container;
+    }
+
+    public function run(string $command, ?int $id): void
     {
         $commands = [
             'articles' => \App\Console\Commands\ArticlesCommand::class,
@@ -14,15 +23,15 @@ class Router
 
         if (array_key_exists($command, $commands)) {
             $commandClass = $commands[$command];
-            $commandInstance = new $commandClass();
+            $commandInstance = $this->container->get($commandClass);
 
             if ($id !== null || $command === 'articles') {
                 $commandInstance->execute($id);
             } else {
-                \App\Console\Commands\InvalidCommand::execute();
+                $this->container->get(\App\Console\Commands\InvalidCommand::class)->execute();
             }
         } else {
-            \App\Console\Commands\InvalidCommand::execute();
+            $this->container->get(\App\Console\Commands\InvalidCommand::class)->execute();
         }
     }
 }

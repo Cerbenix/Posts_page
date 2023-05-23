@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-require __DIR__ . '/../vendor/autoload.php';
+$container = require_once '../bootstrap.php';
 
-$router = new \App\Router();
-$renderer = new \App\Renderer();
+$router = $container->get(\App\Router::class);
+$renderer = $container->get(\App\Renderer::class);
 
 echo $renderer->render($router->response());

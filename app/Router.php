@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Views\View;
+use DI\Container;
 use FastRoute\Dispatcher;
 use FastRoute\RouteCollector;
 use function FastRoute\simpleDispatcher;
@@ -10,10 +11,12 @@ use function FastRoute\simpleDispatcher;
 class Router
 {
     private array $routes;
+    private Container $container;
 
-    public function __construct()
+    public function __construct(Container $container)
     {
         $this->routes = require_once 'routes.php';
+        $this->container = $container;
     }
 
     public function response(): ?View
@@ -45,7 +48,7 @@ class Router
                 $handler = $routeInfo[1];
                 $vars = $routeInfo[2];
                 [$controllerName, $methodName] = $handler;
-                $controller = new $controllerName;
+                $controller = $this->container->get($controllerName);
                 return $controller->{$methodName}($vars);
         }
         return null;

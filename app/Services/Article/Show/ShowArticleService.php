@@ -13,11 +13,14 @@ class ShowArticleService
     private JsonPlaceholderUserRepository $userRepository;
     private JsonPlaceholderCommentRepository $commentRepository;
 
-    public function __construct()
-    {
-        $this->articleRepository = new JsonPlaceholderArticleRepository();
-        $this->userRepository = new JsonPlaceholderUserRepository();
-        $this->commentRepository = new JsonPlaceholderCommentRepository();
+    public function __construct(
+        JsonPlaceholderArticleRepository $articleRepository,
+        JsonPlaceholderUserRepository $userRepository,
+        JsonPlaceholderCommentRepository $commentRepository
+    ) {
+        $this->articleRepository = $articleRepository;
+        $this->userRepository = $userRepository;
+        $this->commentRepository = $commentRepository;
     }
 
     public function execute(ShowArticleRequest $request): ShowArticleResponse

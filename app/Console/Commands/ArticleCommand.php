@@ -9,9 +9,9 @@ class ArticleCommand
 {
     private ShowArticleService $articleService;
 
-    public function __construct()
+    public function __construct(ShowArticleService $showArticleService)
     {
-        $this->articleService = new ShowArticleService();
+        $this->articleService = $showArticleService;
     }
 
     public function execute(int $articleId): void

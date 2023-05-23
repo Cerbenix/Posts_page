@@ -8,12 +8,18 @@ use App\Views\View;
 
 class UserController
 {
+    private IndexUserService $indexUserService;
+
+    public function __construct(IndexUserService $indexUserService)
+    {
+        $this->indexUserService = $indexUserService;
+    }
+
     public function index(array $variables): View
     {
         try {
             $userId = (int)$variables['id'];
-            $service = new IndexUserService();
-            $response = $service->execute(new IndexUserRequest($userId));
+            $response = $this->indexUserService->execute(new IndexUserRequest($userId));
             return new View('user', [
                 'user' => $response->getUser(),
                 'userArticles' => $response->getUserArticles()

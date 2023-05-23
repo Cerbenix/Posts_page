@@ -10,10 +10,12 @@ class IndexArticleService
     private JsonPlaceholderArticleRepository $articleRepository;
     private JsonPlaceholderUserRepository $userRepository;
 
-    public function __construct()
+    public function __construct(
+        JsonPlaceholderArticleRepository $articleRepository,
+        JsonPlaceholderUserRepository $userRepository)
     {
-        $this->articleRepository = new JsonPlaceholderArticleRepository();
-        $this->userRepository = new JsonPlaceholderUserRepository();
+        $this->articleRepository = $articleRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function execute(): IndexArticleResponse
