@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Services\Article\Create;
+namespace App\Services\Article\Modify;
 
 class CreateArticleResponse
 {
@@ -10,7 +10,8 @@ class CreateArticleResponse
     {
         $this->isSaved = $isSaved;
     }
-    public function getIsSaved():bool
+
+    public function getIsSaved(): bool
     {
         return $this->isSaved;
     }

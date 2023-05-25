@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Services\Article\Create;
+namespace App\Services\Article\Modify;
 
 class CreateArticleRequest
 {
@@ -9,7 +9,6 @@ class CreateArticleRequest
 
     public function __construct(string $title, string $body)
     {
-
         $this->title = $title;
         $this->body = $body;
     }

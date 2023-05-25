@@ -124,6 +124,7 @@ class PdoArticleRepository implements ArticleRepository
     public function update(int $articleId, string $title, string $body): bool
     {
         try {
+            Cache::delete('article_' . $articleId);
             $this->connection->getConnection()->update(
                 'articles',
                 [
@@ -142,6 +143,7 @@ class PdoArticleRepository implements ArticleRepository
     public function delete(int $articleId): void
     {
         $this->connection->getConnection()->delete('articles', ['id' => $articleId]);
+        Cache::delete('article_' . $articleId);
     }
 
     private function buildModel(array $articleReport): Article

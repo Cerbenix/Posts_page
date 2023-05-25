@@ -37,6 +37,25 @@ class PdoCommentRepository implements CommentRepository
         return $commentCollection;
     }
 
+    public function store(int $articleId, string $name, string $email, string $body)
+    {
+        $this->connection->getConnection()->insert(
+            'comments',
+            [
+                'article_id' => $articleId,
+                'username' => $name,
+                'user_email' => $email,
+                'comment_body' => $body
+            ]);
+        Cache::delete('comments_for_article_' . $articleId);
+    }
+
+    public function delete(int $articleId, int $commentId): void
+    {
+        $this->connection->getConnection()->delete('comments', ['id' => $commentId]);
+        Cache::delete('comments_for_article_' . $articleId);
+    }
+
     private function buildModel(array $commentReport): Comment
     {
         return new Comment(

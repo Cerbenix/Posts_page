@@ -142,4 +142,15 @@
     background-color: darkred;
     text-decoration: none;
 }
+.delete-comment-button{
+    display: flex;
+    font-size: 12px;
+    height: fit-content;
+    margin-left: 5px;
+    color: white;
+    border-radius: 6px;
+    padding: 5px;
+    background-color: darkred;
+    text-decoration: none;
+}
 

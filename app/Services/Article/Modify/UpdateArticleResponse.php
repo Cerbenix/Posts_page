@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Services\Article\Update;
+namespace App\Services\Article\Modify;
 
 class UpdateArticleResponse
 {
@@ -10,6 +10,7 @@ class UpdateArticleResponse
     {
         $this->isUpdated = $isUpdated;
     }
+
     public function getIsUpdated(): bool
     {
         return $this->isUpdated;

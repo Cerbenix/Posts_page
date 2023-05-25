@@ -2,40 +2,29 @@
 
 namespace App\Controllers;
 
-use App\Cache;
-use App\Services\Article\Create\CreateArticleRequest;
-use App\Services\Article\Create\CreateArticleService;
-use App\Services\Article\Delete\DeleteArticleService;
 use App\Services\Article\Index\IndexArticleService;
+use App\Services\Article\Modify\CreateArticleRequest;
+use App\Services\Article\Modify\ModifyArticleService;
+use App\Services\Article\Modify\UpdateArticleRequest;
 use App\Services\Article\Show\ShowArticleRequest;
 use App\Services\Article\Show\ShowArticleService;
-use App\Services\Article\Update\UpdateArticleRequest;
-use App\Services\Article\Update\UpdateArticleService;
 use App\Views\View;
 
 class ArticleController
 {
-    /**
-     * @Inject
-     */
     private IndexArticleService $indexArticleService;
     private ShowArticleService $showArticleService;
-    private CreateArticleService $createArticleService;
-    private UpdateArticleService $updateArticleService;
-    private DeleteArticleService $deleteArticleService;
+    private ModifyArticleService $modifyArticleService;
 
     public function __construct(
         IndexArticleService  $indexArticleService,
         ShowArticleService   $showArticleService,
-        CreateArticleService $createArticleService,
-        UpdateArticleService $updateArticleService,
-        DeleteArticleService $deleteArticleService)
+        ModifyArticleService $modifyArticleService)
+
     {
         $this->indexArticleService = $indexArticleService;
         $this->showArticleService = $showArticleService;
-        $this->createArticleService = $createArticleService;
-        $this->updateArticleService = $updateArticleService;
-        $this->deleteArticleService = $deleteArticleService;
+        $this->modifyArticleService = $modifyArticleService;
     }
 
     public function index(): View
@@ -69,7 +58,7 @@ class ArticleController
         try {
             if (!empty($_POST['title']) && !empty($_POST['body'])) {
                 $request = new CreateArticleRequest($_POST['title'], $_POST['body']);
-                $response = $this->createArticleService->execute($request);
+                $response = $this->modifyArticleService->create($request);
                 return new View('create', ['result' => $response->getIsSaved()]);
             }
             return new View('create', []);
@@ -83,9 +72,8 @@ class ArticleController
         $articleId = (int)$variables['id'];
         try {
             if (!empty($_POST['title']) && !empty($_POST['body'])) {
-                Cache::delete('article_' . $articleId);
                 $request = new UpdateArticleRequest($articleId, $_POST['title'], $_POST['body']);
-                $response = $this->updateArticleService->execute($request);
+                $response = $this->modifyArticleService->update($request);
                 $request = new ShowArticleRequest($articleId);
                 $showArticleResponse = $this->showArticleService->execute($request);
                 return new View('update',
@@ -105,8 +93,7 @@ class ArticleController
     public function delete(array $variables): void
     {
         $articleId = (int)$variables['id'];
-        $this->deleteArticleService->execute($articleId);
-        Cache::delete('article_' . $articleId);
+        $this->modifyArticleService->delete($articleId);
         header('Location: /');
     }
 }
