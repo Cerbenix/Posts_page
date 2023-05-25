@@ -3,7 +3,6 @@
 namespace App\Services\Article\Index;
 
 use App\Repositories\Article\ArticleRepository;
-
 use App\Repositories\User\UserRepository;
 
 class IndexArticleService
@@ -13,7 +12,7 @@ class IndexArticleService
 
     public function __construct(
         ArticleRepository $articleRepository,
-        UserRepository $userRepository)
+        UserRepository    $userRepository)
     {
         $this->articleRepository = $articleRepository;
         $this->userRepository = $userRepository;

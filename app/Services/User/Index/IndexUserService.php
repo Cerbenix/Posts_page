@@ -12,7 +12,7 @@ class IndexUserService
 
     public function __construct(
         ArticleRepository $articleRepository,
-        UserRepository $userRepository)
+        UserRepository    $userRepository)
     {
         $this->articleRepository = $articleRepository;
         $this->userRepository = $userRepository;

@@ -16,9 +16,10 @@ class ShowArticleService
 
     public function __construct(
         ArticleRepository $articleRepository,
-        UserRepository $userRepository,
+        UserRepository    $userRepository,
         CommentRepository $commentRepository
-    ) {
+    )
+    {
         $this->articleRepository = $articleRepository;
         $this->userRepository = $userRepository;
         $this->commentRepository = $commentRepository;
@@ -30,15 +31,6 @@ class ShowArticleService
         $userId = $article->getUserId();
         $user = $this->userRepository->getById($userId);
         $comments = $this->commentRepository->getByArticleId($request->getArticleId());
-        if($request->getCommentName() != null){
-            $comments[] = new Comment(
-                $request->getArticleId(),
-                count($comments) + 1,
-                $request->getCommentName(),
-                $request->getCommentEmail(),
-                $request->getCommentBody()
-            );
-        }
         return new ShowArticleResponse($article, $user, $comments);
     }
 }

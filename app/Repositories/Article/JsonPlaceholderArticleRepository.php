@@ -65,14 +65,20 @@ class JsonPlaceholderArticleRepository implements ArticleRepository
 
     public function associateUsers(array $users, array $articles): array
     {
+        $usersById = [];
+        foreach ($users as $user) {
+            $usersById[$user->getId()] = $user;
+        }
+
         $associatedList = [];
         foreach ($articles as $article) {
-            foreach ($users as $user) {
-                if ($article->getUserId() == $user->getId()) {
-                    $associatedList[] = new ArticleUserAssociation($article, $user);
-                }
+            $userId = $article->getUserId();
+            if (isset($usersById[$userId])) {
+                $user = $usersById[$userId];
+                $associatedList[] = new ArticleUserAssociation($article, $user);
             }
         }
+
         return $associatedList;
     }
 
@@ -85,6 +91,7 @@ class JsonPlaceholderArticleRepository implements ArticleRepository
             $articleReport->body,
         );
     }
+
     private function fetchFromApi(string $endpoint, string $cacheKey): \stdClass
     {
         if (!Cache::has($cacheKey)) {

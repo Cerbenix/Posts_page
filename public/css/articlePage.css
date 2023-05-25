@@ -120,3 +120,26 @@
     border: solid 3px #3a3a3a;
     box-shadow: 0 0 20px #3b3b3b;
 }
+.edit-button {
+    display: flex;
+    font-size: 18px;
+    height: fit-content;
+    margin: 0 10px 10px 10px;
+    color: black;
+    border-radius: 6px;
+    padding: 5px;
+    background-color: white;
+    text-decoration: none;
+}
+.delete-button {
+    display: flex;
+    font-size: 18px;
+    height: fit-content;
+    margin: 0 10px 10px 10px;
+    color: white;
+    border-radius: 6px;
+    padding: 5px;
+    background-color: darkred;
+    text-decoration: none;
+}
+

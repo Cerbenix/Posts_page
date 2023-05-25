@@ -21,3 +21,17 @@
     background-color: #3a3a3a;
     text-decoration: none;
 }
+.navigation-button {
+    display: flex;
+    justify-self: left;
+    font-size: 30px;
+    align-self: center;
+    height: 35px;
+    margin: 5px;
+    white-space: nowrap;
+    color: white;
+    border-radius: 10px;
+    padding: 5px;
+    background-color: #3a3a3a;
+    text-decoration: none;
+}
