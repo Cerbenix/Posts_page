@@ -39,10 +39,10 @@ class Router
         $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
         switch ($routeInfo[0]) {
             case Dispatcher::NOT_FOUND:
-                header('Location: /error/404');
+                header('Location: /error/404-NOT-FOUND');
                 break;
             case Dispatcher::METHOD_NOT_ALLOWED:
-                header('Location: /error/405');
+                header('Location: /error/405-ACCESS-DENIED');
                 break;
             case Dispatcher::FOUND:
                 $handler = $routeInfo[1];

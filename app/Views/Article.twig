@@ -1,21 +1,9 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Placeholder Page</title>
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/styles.css">
+{% extends 'base.twig' %}
+{% block title %}Placeholder Article{% endblock %}
+{% block stylesheets %}
     <link rel="stylesheet" href="/css/articlePage.css">
-</head>
-<body>
-<header class="header-container">
-    <a class="header-title" href="/">Placeholder</a>
-    <a class="navigation-button" href="/create">Create Article</a>
-</header>
-<main class="layout">
+{% endblock %}
+{% block content %}
     <article class="article-page">
         <div class="article-page-img-container">
             <img src="https://placehold.co/600x400" alt="">
@@ -73,6 +61,4 @@
             </div>
         </div>
     </article>
-</main>
-</body>
-</html>
+{% endblock %}

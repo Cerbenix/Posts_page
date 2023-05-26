@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}Placeholder Page{% endblock %}</title>
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    {% block stylesheets %}{% endblock %}
+</head>
+<body>
+<header class="header-container">
+    <a class="header-title" href="/">Placeholder</a>
+    <a class="navigation-button" href="/create">Create Article</a>
+</header>
+<main class="layout">
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>
