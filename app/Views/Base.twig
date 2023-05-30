@@ -12,7 +12,18 @@
 <body>
 <header class="header-container">
     <a class="header-title" href="/">Placeholder</a>
-    <a class="navigation-button" href="/create">Create Article</a>
+    {% if sessionId %}
+        <div class="button-container">
+            <a class="navigation-button" href="/article/create">Create Article</a>
+            <a class="navigation-button" href="/profile">Profile</a>
+            <a class="navigation-button" href="/logout">Logout</a>
+        </div>
+    {% else %}
+        <div class="button-container">
+            <a class="navigation-button" href="/user/register">Register</a>
+            <a class="navigation-button" href="/login">Login</a>
+        </div>
+    {% endif %}
 </header>
 <main class="layout">
     {% block content %}{% endblock %}

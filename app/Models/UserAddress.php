@@ -4,12 +4,17 @@ namespace App\Models;
 
 class UserAddress
 {
-    private string $street;
-    private string $suite;
-    private string $city;
-    private string $zipCode;
+    private ?string $street;
+    private ?string $suite;
+    private ?string $city;
+    private ?string $zipCode;
 
-    public function __construct(string $street, string $suite, string $city, string $zipCode)
+    public function __construct(
+        string $street = null,
+        string $suite = null,
+        string $city = null,
+        string $zipCode = null
+    )
     {
         $this->street = $street;
         $this->suite = $suite;
@@ -17,22 +22,22 @@ class UserAddress
         $this->zipCode = $zipCode;
     }
 
-    public function getCity(): string
+    public function getCity(): ?string
     {
         return $this->city;
     }
 
-    public function getStreet(): string
+    public function getStreet(): ?string
     {
         return $this->street;
     }
 
-    public function getSuite(): string
+    public function getSuite(): ?string
     {
         return $this->suite;
     }
 
-    public function getZipCode(): string
+    public function getZipCode(): ?string
     {
         return $this->zipCode;
     }

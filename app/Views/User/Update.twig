@@ -1,0 +1,63 @@
+{% extends 'Base.twig' %}
+{% block title %}Placeholder Register{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/registerPage.css">
+{% endblock %}
+{% block content %}
+    <div class="article-page">
+        <div class="title">
+            Profile Edit
+        </div>
+        <form class="article-form" method="POST" action="/profile">
+            <div class="form-sub-container">
+                <label for="name">*Name:</label>
+                <input type="text" id="name" name="name" required value="{{ user.getName }}">
+            </div>
+            <div class="form-sub-container">
+                <label for="username">*Username:</label>
+                <input type="text" id="username" name="username" required value="{{ user.getUsername }}">
+            </div>
+            <div class="form-sub-container">
+                <label for="email">*E-mail:</label>
+                <input type="email" id="email" name="email" required value="{{ user.getEmail }}">
+            </div>
+            <div class="form-sub-container">
+                <label for="street">Street:</label>
+                <input type="text" id="street" name="street" value="{{ user.getAddress.getStreet }}">
+            </div>
+            <div class="form-sub-container">
+                <label for="suite">Suite:</label>
+                <input type="text" id="suite" name="suite" value="{{ user.getAddress.getSuite }}">
+            </div>
+            <div class="form-sub-container">
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city" value="{{ user.getAddress.getCity }}">
+            </div>
+            <div class="form-sub-container">
+                <label for="zipCode">Zip Code:</label>
+                <input type="text" id="zipCode" name="zipCode" value="{{ user.getAddress.getZipCode }}">
+            </div>
+            <div class="form-sub-container">
+                <label for="phone">Phone number:</label>
+                <input type="text" id="phone" name="phone" value="{{ user.getPhone }}">
+            </div>
+            <div class="form-sub-container">
+                <label for="website">Website:</label>
+                <input type="text" id="website" name="website" value="{{ user.getWebsite }}">
+            </div>
+            <div class="form-sub-container">
+                <label for="companyName">Company Name:</label>
+                <input type="text" id="companyName" name="companyName" value="{{ user.getCompany.getName }}">
+            </div>
+            <div class="form-sub-container">
+                <label for="companyCatchPhrase">Company Catch Phrase:</label>
+                <input type="text" id="companyCatchPhrase" name="companyCatchPhrase" value="{{ user.getCompany.getCatchPhrase }}">
+            </div>
+            <div class="form-sub-container">
+                <label for="companyBusinessServices">Business Services:</label>
+                <input type="text" id="companyBusinessServices" name="companyBusinessServices" value="{{ user.getCompany.getBusinessServices }}">
+            </div>
+            <button class="button" type="submit">Submit Changes</button>
+        </form>
+    </div>
+{% endblock %}

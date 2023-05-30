@@ -2,37 +2,42 @@
 
 namespace App\Controllers;
 
-use App\Services\Comment\DeleteCommentRequest;
-use App\Services\Comment\StoreCommentRequest;
-use App\Services\Comment\ModifyCommentService;
+use App\Services\Comment\Create\CreateCommentRequest;
+use App\Services\Comment\Create\CreateCommentService;
+use App\Services\Comment\Delete\DeleteCommentRequest;
+use App\Services\Comment\Delete\DeleteCommentService;
+use App\SessionManager;
 
 class CommentController
 {
-    private ModifyCommentService $modifyCommentService;
+    private CreateCommentService $createCommentService;
+    private DeleteCommentService $deleteCommentService;
 
-    public function __construct(ModifyCommentService $modifyCommentService)
+    public function __construct(
+        CreateCommentService $createCommentService,
+        DeleteCommentService $deleteCommentService)
     {
-        $this->modifyCommentService = $modifyCommentService;
+
+        $this->createCommentService = $createCommentService;
+        $this->deleteCommentService = $deleteCommentService;
     }
 
     public function store(array $variables): void
     {
         $articleId = (int)$variables['id'];
-        if (!empty($_POST['name']) && !empty($_POST['email']) && !empty($_POST['body'])) {
-            $this->modifyCommentService->store(new StoreCommentRequest(
-                $articleId,
-                $_POST['name'],
-                $_POST['email'],
-                $_POST['body']
-            ));
-        }
+        $this->createCommentService->execute(new CreateCommentRequest(
+            $articleId,
+            SessionManager::get(),
+            $_POST['body']
+        ));
         header("Location: /article/$articleId");
     }
+
     public function delete(array $variables): void
     {
         $articleId = (int)$variables['id'];
         $commentId = (int)$variables['commentId'];
-        $this->modifyCommentService->delete(new DeleteCommentRequest($articleId, $commentId));
+        $this->deleteCommentService->execute(new DeleteCommentRequest($commentId));
 
         header("Location: /article/$articleId");
     }

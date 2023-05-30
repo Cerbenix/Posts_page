@@ -103,4 +103,19 @@ class JsonPlaceholderArticleRepository implements ArticleRepository
         }
         return $report;
     }
+
+    public function save(Article $article): void
+    {
+
+    }
+
+    public function update(Article $article): void
+    {
+
+    }
+
+    public function delete(int $articleId): void
+    {
+
+    }
 }

@@ -50,5 +50,15 @@ class JsonPlaceholderCommentRepository implements CommentRepository
         }
         return $report;
     }
+
+    public function save(Comment $comment): void
+    {
+
+    }
+
+    public function delete(int $commentId): void
+    {
+
+    }
 }
 

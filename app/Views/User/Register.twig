@@ -1,0 +1,89 @@
+{% extends 'Base.twig' %}
+{% block title %}Placeholder Register{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/registerPage.css">
+{% endblock %}
+{% block content %}
+    <div class="article-page">
+        <div class="title">
+            Register
+        </div>
+        <form class="article-form" method="POST" action="/user">
+            <div class="form-sub-container">
+                <label for="name">*Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-sub-container">
+                <label for="username">*Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-sub-container">
+                <label for="email">*E-mail:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-sub-container">
+                <label for="street">Street:</label>
+                <input type="text" id="street" name="street">
+            </div>
+            <div class="form-sub-container">
+                <label for="suite">Suite:</label>
+                <input type="text" id="suite" name="suite">
+            </div>
+            <div class="form-sub-container">
+                <label for="city">City:</label>
+                <input type="text" id="city" name="city">
+            </div>
+            <div class="form-sub-container">
+                <label for="zipCode">Zip Code:</label>
+                <input type="text" id="zipCode" name="zipCode">
+            </div>
+            <div class="form-sub-container">
+                <label for="phone">Phone number:</label>
+                <input type="text" id="phone" name="phone">
+            </div>
+            <div class="form-sub-container">
+                <label for="website">Website:</label>
+                <input type="text" id="website" name="website">
+            </div>
+            <div class="form-sub-container">
+                <label for="companyName">Company Name:</label>
+                <input type="text" id="companyName" name="companyName">
+            </div>
+            <div class="form-sub-container">
+                <label for="companyCatchPhrase">Company Catch Phrase:</label>
+                <input type="text" id="companyCatchPhrase" name="companyCatchPhrase">
+            </div>
+            <div class="form-sub-container">
+                <label for="companyBusinessServices">Business Services:</label>
+                <input type="text" id="companyBusinessServices" name="companyBusinessServices">
+            </div>
+            <div class="form-sub-container">
+                <label for="password">*Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="form-sub-container">
+                <label for="repeatPassword">*Repeat Password:</label>
+                <input type="password" id="repeatPassword" name="repeatPassword" required>
+            </div>
+            <div id="passwordMismatchError" style="display: none; color: red;">Passwords do not match.</div>
+            <button class="button" type="submit">Register</button>
+            <script>
+                let passwordInput = document.getElementById('password');
+                let repeatPasswordInput = document.getElementById('repeatPassword');
+                let errorElement = document.getElementById('passwordMismatchError');
+
+                function validatePassword() {
+                    if (passwordInput.value !== repeatPasswordInput.value) {
+                        errorElement.style.display = 'block';
+                        repeatPasswordInput.setCustomValidity('Passwords do not match.');
+                    } else {
+                        errorElement.style.display = 'none';
+                        repeatPasswordInput.setCustomValidity('');
+                    }
+                }
+                passwordInput.addEventListener('input', validatePassword);
+                repeatPasswordInput.addEventListener('input', validatePassword);
+            </script>
+        </form>
+    </div>
+{% endblock %}

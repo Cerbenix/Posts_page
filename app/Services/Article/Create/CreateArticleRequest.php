@@ -1,16 +1,18 @@
 <?php declare(strict_types=1);
 
-namespace App\Services\Article\Modify;
+namespace App\Services\Article\Create;
 
 class CreateArticleRequest
 {
     private string $title;
     private string $body;
+    private int $userId;
 
-    public function __construct(string $title, string $body)
+    public function __construct(string $title, string $body, int $userId)
     {
         $this->title = $title;
         $this->body = $body;
+        $this->userId = $userId;
     }
 
     public function getTitle(): string
@@ -23,4 +25,8 @@ class CreateArticleRequest
         return $this->body;
     }
 
+    public function getUserId(): int
+    {
+        return $this->userId;
+    }
 }

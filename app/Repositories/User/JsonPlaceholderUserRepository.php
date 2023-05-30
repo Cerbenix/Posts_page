@@ -53,19 +53,17 @@ class JsonPlaceholderUserRepository implements UserRepository
         return $this->buildModel($report);
     }
 
-
-
     private function buildModel(\stdClass $userReport): User
     {
         return new User(
-            $userReport->id,
             $userReport->name,
             $userReport->username,
             $userReport->email,
             $this->createAddress($userReport->address),
             $userReport->phone,
             $userReport->website,
-            $this->createCompany($userReport->company)
+            $this->createCompany($userReport->company),
+            $userReport->id
         );
     }
 
@@ -101,4 +99,18 @@ class JsonPlaceholderUserRepository implements UserRepository
     }
 
 
+    public function save(User $user): void
+    {
+
+    }
+
+    public function findByUsername(string $username): ?User
+    {
+        return null;
+    }
+
+    public function update(User $user): void
+    {
+
+    }
 }

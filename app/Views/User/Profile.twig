@@ -1,0 +1,91 @@
+{% extends 'Base.twig' %}
+{% block title %}Placeholder User{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/userPage.css">
+{% endblock %}
+{% block content %}
+    <div class="user">
+        <div class="user-card">
+            <img class="user-image" src="https://placehold.co/150" alt="">
+            <a class="edit-button" href="/profile/edit">Edit Profile</a>
+            <div class="content">
+                <span class="constant-grey">Name:</span>
+                <span class="user-info">{{ user.getName() }}</span>
+            </div>
+            <div class="content">
+                <span class="constant-grey">Username:</span>
+                <span class="user-info">{{ user.getUserName() }}</span>
+            </div>
+            <div class="content">
+                <span class="constant-grey">Email:</span>
+                <span class="user-info">{{ user.getEmail() }}</span>
+            </div>
+            {% if user.address.getCity() or user.address.getStreet() or user.address.getSuite() or user.address.getZipCode() %}
+                <div class="content">
+                    <span class="constant-grey">Address:</span>
+                    <span class="user-info">
+                    {{ user.getAddress().getCity() }}<br>
+                    {{ user.getAddress().getStreet() }}<br>
+                    {{ user.getAddress().getSuite() }}<br>
+                    {{ user.getAddress().getZipCode() }}
+                    </span>
+                </div>
+            {% endif %}
+            {% if user.getPhone() %}
+                <div class="content">
+                    <span class="constant-grey">Phone:</span>
+                    <span class="user-info">{{ user.getPhone() }}</span>
+                </div>
+            {% endif %}
+            {% if user.getWebsite() %}
+                <div class="content">
+                    <span class="constant-grey">Website:</span>
+                    <span class="user-info">{{ user.getWebsite() }}</span>
+                </div>
+            {% endif %}
+            {% if user.company.name or user.company.catchPhrase or user.company.buinsessServices %}
+                <div class="content">
+                    <span class="constant-grey">Company:</span>
+                    <span class="user-info">
+                        {% if user.getCompany.getName %}
+                            <span class="constant-grey">Name:</span>
+                            {{ user.getCompany.getName() }}<br>
+                        {% endif %}
+                        {% if user.getCompany.getCatchPhrase %}
+                            <span class="constant-grey">Catch Phrase:</span>
+                            {{ user.getCompany.getCatchPhrase() }}<br>
+                        {% endif %}
+                        {% if user.getCompany.getBusinessServices %}
+                            <span class="constant-grey">Business Services:</span>
+                            {{ user.getCompany().getBusinessServices()|capitalize }}
+                        {% endif %}
+                    </span>
+                </div>
+            {% endif %}
+        </div>
+        <div class="partition">
+            User Articles:
+        </div>
+    </div>
+    <main class="layout">
+        {% for article in userArticles %}
+            <article class="article-card">
+                <div class="img-container">
+                    <a href="/article/{{ article.getId() }}">
+                        <img src="https://placehold.co/200" alt="">
+                    </a>
+                </div>
+                <div class="content-container">
+                    <div class="content">
+                        <a class="link" href="/article/{{ article.getId() }}">
+                            <h2>{{ article.getTitle()|capitalize }}</h2>
+                        </a>
+                        <p class="preview">
+                            {{ article.getBody()|slice(0, 75)|capitalize }}...
+                        </p>
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+    </main>
+{% endblock %}

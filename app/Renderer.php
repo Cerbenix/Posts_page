@@ -9,15 +9,18 @@ use Twig\Loader\FilesystemLoader;
 class Renderer
 {
     private Environment $twig;
+    private SessionManager $sessionManager;
 
-    public function __construct()
+    public function __construct(SessionManager $sessionManager)
     {
         $loader = new FilesystemLoader('../app/Views');
         $this->twig = new Environment($loader);
+        $this->sessionManager = $sessionManager;
     }
 
     public function render(View $view): string
     {
+        $view->addVariables($this->sessionManager->get());
         return $this->twig->render($view->getTemplate() . '.twig', $view->getVariables());
     }
 }

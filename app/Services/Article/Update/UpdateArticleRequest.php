@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Services\Article\Modify;
+namespace App\Services\Article\Update;
 
 class UpdateArticleRequest
 {

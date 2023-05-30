@@ -12,11 +12,13 @@ class Router
 {
     private array $routes;
     private Container $container;
+    private RouteAccessManager $routeAccessManager;
 
-    public function __construct(Container $container)
+    public function __construct(Container $container, RouteAccessManager $routeAccessManager)
     {
         $this->routes = require_once 'routes.php';
         $this->container = $container;
+        $this->routeAccessManager = $routeAccessManager;
     }
 
     public function response(): ?View
@@ -48,8 +50,12 @@ class Router
                 $handler = $routeInfo[1];
                 $vars = $routeInfo[2];
                 [$controllerName, $methodName] = $handler;
-                $controller = $this->container->get($controllerName);
-                return $controller->{$methodName}($vars);
+                if ($this->routeAccessManager->isRouteAccessible($uri, SessionManager::has())) {
+                    $controller = $this->container->get($controllerName);
+                    return $controller->{$methodName}($vars);
+                } else {
+                    $this->routeAccessManager->redirect(SessionManager::has());
+                }
         }
         return null;
     }

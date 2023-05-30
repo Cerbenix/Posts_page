@@ -20,6 +20,7 @@
     padding: 5px;
     background-color: #3a3a3a;
     text-decoration: none;
+    box-shadow: 0 0 5px 0 #333333;
 }
 .navigation-button {
     display: flex;
@@ -33,5 +34,9 @@
     border-radius: 10px;
     padding: 5px;
     background-color: #3a3a3a;
+    box-shadow: 0 0 5px 0 #333333;
     text-decoration: none;
+}
+.button-container {
+    display: flex;
 }

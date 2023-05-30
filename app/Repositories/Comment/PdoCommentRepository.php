@@ -21,49 +21,48 @@ class PdoCommentRepository implements CommentRepository
     public function getByArticleId(int $articleId): array
     {
         $commentCollection = [];
-        $cacheKey = 'comments_for_article_' . $articleId;
-        if (!Cache::has($cacheKey)) {
-            $comments = $this->queryBuilder->select('*')
-                ->from('comments')
-                ->where("article_id = $articleId")
-                ->fetchAllAssociative();
-            Cache::save($cacheKey, json_encode($comments));
-        } else {
-            $comments = json_decode(Cache::get($cacheKey));
-        }
+        $comments = $this->queryBuilder->select('*')
+            ->from('comments')
+            ->where("article_id = $articleId")
+            ->fetchAllAssociative();
+
         foreach ($comments as $comment) {
             $commentCollection[] = $this->buildModel((array)$comment);
         }
         return $commentCollection;
     }
 
-    public function store(int $articleId, string $name, string $email, string $body)
+    public function save(Comment $comment): void
     {
-        $this->connection->getConnection()->insert(
-            'comments',
-            [
-                'article_id' => $articleId,
-                'username' => $name,
-                'user_email' => $email,
-                'comment_body' => $body
-            ]);
-        Cache::delete('comments_for_article_' . $articleId);
+        $this->queryBuilder->insert('comments')
+            ->values(
+                [
+                    'username' => '?',
+                    'user_email' => '?',
+                    'comment_body' => '?',
+                    'article_id' => '?',
+                ]
+            )
+            ->setParameter(0, $comment->getName())
+            ->setParameter(1, $comment->getEmail())
+            ->setParameter(2, $comment->getBody())
+            ->setParameter(3, $comment->getPostId())
+            ->executeQuery();
     }
 
-    public function delete(int $articleId, int $commentId): void
+    public function delete(int $commentId): void
     {
         $this->connection->getConnection()->delete('comments', ['id' => $commentId]);
-        Cache::delete('comments_for_article_' . $articleId);
     }
 
     private function buildModel(array $commentReport): Comment
     {
         return new Comment(
             (int)$commentReport['article_id'],
-            (int)$commentReport['id'],
             $commentReport['username'],
             $commentReport['user_email'],
-            $commentReport['comment_body']
+            $commentReport['comment_body'],
+            (int)$commentReport['id']
         );
     }
 }

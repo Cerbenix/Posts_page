@@ -4,24 +4,26 @@ namespace App\Models;
 
 class User
 {
-    private int $id;
+    private ?int $id;
     private string $name;
     private string $username;
     private string $email;
-    private UserAddress $address;
-    private string $phone;
-    private string $website;
-    private UserCompany $company;
+    private ?UserAddress $address;
+    private ?string $phone;
+    private ?string $website;
+    private ?UserCompany $company;
+    private ?string $password;
 
     public function __construct(
-        int         $id,
-        string      $name,
-        string      $username,
-        string      $email,
-        UserAddress $address,
-        string      $phone,
-        string      $website,
-        UserCompany $company
+        string       $name,
+        string       $username,
+        string       $email,
+        ?UserAddress $address = null,
+        ?string      $phone = null,
+        ?string      $website = null,
+        ?UserCompany $company = null,
+        ?int         $id = null,
+        ?string      $password = null
     )
     {
         $this->id = $id;
@@ -32,9 +34,15 @@ class User
         $this->phone = $phone;
         $this->website = $website;
         $this->company = $company;
+        $this->password = $password;
     }
 
-    public function getId(): int
+    public function getPassword(): ?string
+    {
+        return $this->password;
+    }
+
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -44,12 +52,12 @@ class User
         return $this->name;
     }
 
-    public function getAddress(): UserAddress
+    public function getAddress(): ?UserAddress
     {
         return $this->address;
     }
 
-    public function getCompany(): UserCompany
+    public function getCompany(): ?UserCompany
     {
         return $this->company;
     }
@@ -59,7 +67,7 @@ class User
         return $this->email;
     }
 
-    public function getPhone(): string
+    public function getPhone(): ?string
     {
         return $this->phone;
     }
@@ -69,8 +77,13 @@ class User
         return $this->username;
     }
 
-    public function getWebsite(): string
+    public function getWebsite(): ?string
     {
         return $this->website;
+    }
+
+    public function setId(?int $id): void
+    {
+        $this->id = $id;
     }
 }

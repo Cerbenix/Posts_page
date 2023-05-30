@@ -1,25 +1,11 @@
-{% extends 'base.twig' %}
+{% extends 'Base.twig' %}
 {% block title %}Placeholder Article Edit{% endblock %}
 {% block stylesheets %}
     <link rel="stylesheet" href="/css/createPage.css">
 {% endblock %}
 {% block content %}
     <div class="article-page">
-        {% if result is defined and result %}
-            <div class="confirmation" id="confirmation" style="display: none;">
-                Your article has been edited!
-            </div>
-            <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    var confirmationMessage = document.getElementById("confirmation");
-                    confirmationMessage.style.display = "flex";
-                    setTimeout(function () {
-                        confirmationMessage.style.display = "none";
-                    }, 2000);
-                });
-            </script>
-        {% endif %}
-        <form class="article-form" method="POST" action="">
+        <form class="article-form" method="POST" action="/article/{{ article.getId }}">
             <div class="form-sub-container">
                 <label for="title">Title:</label>
                 <input type="text" id="title" name="title" value="{{ article.getTitle() }}">

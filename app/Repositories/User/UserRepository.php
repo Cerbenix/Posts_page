@@ -9,5 +9,7 @@ interface UserRepository
 {
     public function all(): array;
     public function getById(int $userId): User;
-
+    public function save(User $user):void;
+    public function update(User $user):void;
+    public function findByUsername(string $username): ?User;
 }

@@ -1,0 +1,28 @@
+{% extends 'Base.twig' %}
+{% block title %}Placeholder Login{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="/css/registerPage.css">
+{% endblock %}
+{% block content %}
+    <div class="article-page">
+        <div class="title">
+            Login
+        </div>
+        <form class="article-form" method="POST" action="/login">
+            <div class="form-sub-container">
+                <label for="title">Username:</label>
+                <input type="text" id="username" name="username">
+            </div>
+            <div class="form-sub-container">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password">
+            </div>
+            {% if message %}
+                <div class="form-sub-container">
+                    {{ message }}
+                </div>
+            {% endif %}
+            <button class="button" type="submit">Login</button>
+        </form>
+    </div>
+{% endblock %}

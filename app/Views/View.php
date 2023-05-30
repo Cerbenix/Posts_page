@@ -22,4 +22,8 @@ class View
     {
         return $this->variables;
     }
+    public function addVariables(int $sessionId = null):void
+    {
+        $this->variables['sessionId'] = $sessionId;
+    }
 }

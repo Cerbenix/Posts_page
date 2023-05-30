@@ -4,6 +4,8 @@ require_once 'vendor/autoload.php';
 
 use DI\ContainerBuilder;
 
+\App\SessionManager::start();
+
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->safeLoad();
 

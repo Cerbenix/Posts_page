@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Article;
 
-use App\Cache;
 use App\DatabaseConnector;
 use App\Models\Article;
 use App\Models\ArticleUserAssociation;
@@ -23,67 +22,35 @@ class PdoArticleRepository implements ArticleRepository
     public function all(): array
     {
         $articleCollection = [];
-        $articleAmount = $this->queryBuilder->select('COUNT(*)')
+        $articles = $this->queryBuilder->select('*')
             ->from('articles')
-            ->fetchNumeric();
-        $articleIdList = range(1, $articleAmount[0]);
-        $allCached = true;
-        foreach ($articleIdList as $articleId) {
-            if (!Cache::has('article_' . $articleId)) {
-                $allCached = false;
-                break;
-            }
-        }
-        if (!$allCached) {
-            $articles = $this->queryBuilder->select('*')
-                ->from('articles')
-                ->fetchAllAssociative();
-            foreach ($articles as $article) {
-                $articleCollection[] = $this->buildModel($article);
-                Cache::save('article_' . $article['id'], json_encode($article));
-            }
-        } else {
-            foreach ($articleIdList as $articleId) {
-                $cachedReport = json_decode(Cache::get('article_' . $articleId));
-                $articleCollection[] = $this->buildModel((array)$cachedReport);
-            }
+            ->fetchAllAssociative();
+        foreach ($articles as $article) {
+            $articleCollection[] = $this->buildModel($article);
         }
         return $articleCollection;
     }
 
     public function getById(int $articleId): Article
     {
-        $cacheKey = 'article_' . $articleId;
-        if (!Cache::has($cacheKey)) {
-            $article = $this->queryBuilder->select('*')
-                ->from('articles')
-                ->where("id = $articleId")
-                ->fetchAssociative();
-            Cache::save($cacheKey, json_encode($article));
-        } else {
-            $article = json_decode(Cache::get($cacheKey));
-        }
+        $article = $this->queryBuilder->select('*')
+            ->from('articles')
+            ->where("id = ?")
+            ->setParameter(0, $articleId)
+            ->fetchAssociative();
         return $this->buildModel((array)$article);
     }
 
     public function getByUserId(int $userId): array
     {
         $userArticleCollection = [];
-        $cacheKey = 'user_articles_' . $userId;
-        if (!Cache::has($cacheKey)) {
-            $articles = $this->queryBuilder->select('*')
-                ->from('articles')
-                ->where("user_id = $userId")
-                ->fetchAllAssociative();
-            Cache::save($cacheKey, json_encode($articles));
-            foreach ($articles as $article) {
-                $userArticleCollection[] = $this->buildModel($article);
-            }
-        } else {
-            $articles = json_decode(Cache::get($cacheKey));
-            foreach ($articles as $article) {
-                $userArticleCollection[] = $this->buildModel((array)$article);
-            }
+        $articles = $this->queryBuilder->select('*')
+            ->from('articles')
+            ->where("user_id = ?")
+            ->setParameter(0, $userId)
+            ->fetchAllAssociative();
+        foreach ($articles as $article) {
+            $userArticleCollection[] = $this->buildModel($article);
         }
         return $userArticleCollection;
     }
@@ -105,54 +72,50 @@ class PdoArticleRepository implements ArticleRepository
         return $associatedList;
     }
 
-    public function create(string $title, string $body): bool
+    public function save(Article $article): void
     {
-        try {
-            $this->connection->getConnection()->insert(
-                'articles',
+        $this->queryBuilder->insert('articles')
+            ->values(
                 [
-                    'user_id' => 1,
-                    'title' => $title,
-                    'body' => $body
-                ]);
-            return true;
-        } catch (\Doctrine\DBAL\Exception $e) {
-            return false;
-        }
+                    'title' => '?',
+                    'user_id' => '?',
+                    'body' => '?',
+                    'created_at' => '?',
+                ]
+            )
+            ->setParameter(0, $article->getTitle())
+            ->setParameter(1, $article->getUserId())
+            ->setParameter(2, $article->getBody())
+            ->setParameter(3, $article->getCreatedAt())
+            ->executeQuery();
+        $article->setId((int)$this->connection->getConnection()->lastInsertId());
     }
 
-    public function update(int $articleId, string $title, string $body): bool
+    public function update(Article $article): void
     {
-        try {
-            Cache::delete('article_' . $articleId);
-            $this->connection->getConnection()->update(
-                'articles',
-                [
-                    'title' => $title,
-                    'body' => $body
-                ],
-                [
-                    'id' => $articleId
-                ]);
-            return true;
-        } catch (\Doctrine\DBAL\Exception $e) {
-            return false;
-        }
+        $this->queryBuilder->update('articles')
+            ->set('title', '?')
+            ->set('body', '?')
+            ->where('id = ?')
+            ->setParameter(0, $article->getTitle())
+            ->setParameter(1, $article->getBody())
+            ->setParameter(2, $article->getId())
+            ->executeStatement();
     }
 
     public function delete(int $articleId): void
     {
         $this->connection->getConnection()->delete('articles', ['id' => $articleId]);
-        Cache::delete('article_' . $articleId);
     }
 
     private function buildModel(array $articleReport): Article
     {
         return new Article(
             (int)$articleReport['user_id'],
-            (int)$articleReport['id'],
             $articleReport['title'],
             $articleReport['body'],
+            $articleReport['created_at'],
+            (int)$articleReport['id'],
         );
     }
 }
