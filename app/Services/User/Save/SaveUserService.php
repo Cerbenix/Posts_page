@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\UserAddress;
 use App\Models\UserCompany;
 use App\Repositories\User\UserRepository;
+use http\Exception\InvalidArgumentException;
 
 class SaveUserService
 {
@@ -17,7 +18,15 @@ class SaveUserService
     }
     public function execute(SaveUserRequest $request): SaveUserResponse
     {
+        $userExists = $this->userRepository->findByEmail($request->getEmail());
+        if($userExists != null){
+            throw new InvalidArgumentException('User already exists');
+        }
+        if($request->getPassword() !== $request->getRepeatPassword()){
+            throw new InvalidArgumentException('Passwords do not match');
+        }
         $password = password_hash($request->getPassword(), PASSWORD_DEFAULT);
+
         $user = New User(
             $request->getName(),
             $request->getUsername(),

@@ -97,6 +97,24 @@ class PdoUserRepository implements UserRepository
         }
     }
 
+    public function findByEmail(string $email): ?User
+    {
+        try {
+            $user = $this->queryBuilder->select('*')
+                ->from('users')
+                ->where("email = ?")
+                ->setParameter(0, $email)
+                ->fetchAssociative();
+            if ($user) {
+                return $this->buildModel($user);
+            } else {
+                return null;
+            }
+        } catch (\Doctrine\DBAL\Exception $e) {
+            return null;
+        }
+    }
+
     public function update(User $user): void
     {
         $this->queryBuilder->update('users')
@@ -139,8 +157,8 @@ class PdoUserRepository implements UserRepository
             $userReport['phone'],
             $userReport['website'],
             $this->createCompany($userReport),
-            (int)$userReport['id'],
-            $userReport['password']
+            $userReport['password'],
+            (int)$userReport['id']
         );
     }
 

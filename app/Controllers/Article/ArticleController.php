@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Article;
 
+use App\Redirect;
 use App\Services\Article\Delete\DeleteArticleService;
 use App\Services\Article\Index\IndexArticleService;
 use App\Services\Article\Show\ShowArticleRequest;
@@ -49,10 +50,10 @@ class ArticleController
             return new View('error', ['message' => $exception->getMessage()]);
         }
     }
-    public function delete(array $variables): void
+    public function delete(array $variables): Redirect
     {
         $articleId = (int)$variables['id'];
         $this->deleteArticleService->execute($articleId);
-        header('Location: /');
+        return new Redirect('/');
     }
 }

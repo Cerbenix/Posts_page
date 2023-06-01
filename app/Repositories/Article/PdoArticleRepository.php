@@ -5,6 +5,7 @@ namespace App\Repositories\Article;
 use App\DatabaseConnector;
 use App\Models\Article;
 use App\Models\ArticleUserAssociation;
+use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Query\QueryBuilder;
 
 
@@ -31,6 +32,9 @@ class PdoArticleRepository implements ArticleRepository
         return $articleCollection;
     }
 
+    /**
+     * @throws Exception
+     */
     public function getById(int $articleId): Article
     {
         $article = $this->queryBuilder->select('*')

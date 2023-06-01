@@ -4,5 +4,11 @@ $container = require_once '../bootstrap.php';
 
 $router = $container->get(\App\Router::class);
 $renderer = $container->get(\App\Renderer::class);
+$response = $router->response();
 
-echo $renderer->render($router->response());
+if($response instanceof \App\Views\View){
+    echo $renderer->render($response);
+}
+if($response instanceof \App\Redirect){
+    header('Location: ' . $response->getLocation());
+}

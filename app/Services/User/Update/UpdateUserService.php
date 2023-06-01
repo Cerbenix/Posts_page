@@ -35,6 +35,7 @@ class UpdateUserService
                 $request->getCompanyCatchPhrase(),
                 $request->getCompanyBusinessServices()
             ),
+            null,
             $request->getId()
         );
 

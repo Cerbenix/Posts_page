@@ -2,6 +2,7 @@
 
 namespace App\Controllers\User;
 
+use App\Redirect;
 use App\Services\User\Index\IndexUserRequest;
 use App\Services\User\Index\IndexUserService;
 use App\Services\User\Save\SaveUserRequest;
@@ -31,7 +32,7 @@ class UpdateUserController
         $response = $this->indexUserService->execute(new IndexUserRequest($userId));
         return new View('user/update', ['user' => $response->getUser()]);
     }
-    public function update():void
+    public function update():Redirect
     {
         $request = new UpdateUserRequest(
             SessionManager::get(),
@@ -51,6 +52,6 @@ class UpdateUserController
 
         $this->updateUserService->execute($request);
 
-        header('Location: /profile');
+        return new Redirect('/profile');
     }
 }

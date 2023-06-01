@@ -21,7 +21,7 @@ class Router
         $this->routeAccessManager = $routeAccessManager;
     }
 
-    public function response(): ?View
+    public function response(): ?Response
     {
         $dispatcher = simpleDispatcher(function (RouteCollector $router) {
             foreach ($this->routes as $route) {
@@ -53,11 +53,9 @@ class Router
                 if ($this->routeAccessManager->isRouteAccessible($uri, SessionManager::has())) {
                     $controller = $this->container->get($controllerName);
                     return $controller->{$methodName}($vars);
-                } else {
-                    $this->routeAccessManager->redirect(SessionManager::has());
                 }
         }
-        return null;
+       return $this->routeAccessManager->redirect(SessionManager::has());
     }
 }
 

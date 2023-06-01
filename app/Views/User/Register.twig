@@ -71,14 +71,11 @@
                 let passwordInput = document.getElementById('password');
                 let repeatPasswordInput = document.getElementById('repeatPassword');
                 let errorElement = document.getElementById('passwordMismatchError');
-
                 function validatePassword() {
                     if (passwordInput.value !== repeatPasswordInput.value) {
                         errorElement.style.display = 'block';
-                        repeatPasswordInput.setCustomValidity('Passwords do not match.');
                     } else {
                         errorElement.style.display = 'none';
-                        repeatPasswordInput.setCustomValidity('');
                     }
                 }
                 passwordInput.addEventListener('input', validatePassword);

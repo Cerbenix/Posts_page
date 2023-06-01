@@ -2,6 +2,7 @@
 
 namespace App\Controllers\Article;
 
+use App\Redirect;
 use App\Services\Article\Create\CreateArticleRequest;
 use App\Services\Article\Create\CreateArticleService;
 use App\SessionManager;
@@ -21,15 +22,15 @@ class CreateArticleController
         return new View('article/create', []);
     }
 
-    public function store(): void
+    public function store(): Redirect
     {
         try {
             $request = new CreateArticleRequest($_POST['title'], $_POST['body'], SessionManager::get());
             $response = $this->createArticleService->execute($request);
             $article = $response->getArticle();
-            header('Location: /article/' . $article->getId());
+            return new Redirect('/article/' . $article->getId());
         } catch (\Exception $exception) {
-
+            return new Redirect('/error/' . $exception->getMessage());
         }
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Views;
 
-class View
+use App\Response;
+
+class View implements Response
 {
     private string $template;
     private array $variables;

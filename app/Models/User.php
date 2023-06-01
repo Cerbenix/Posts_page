@@ -22,8 +22,9 @@ class User
         ?string      $phone = null,
         ?string      $website = null,
         ?UserCompany $company = null,
-        ?int         $id = null,
-        ?string      $password = null
+        ?string      $password = null,
+        ?int         $id = null
+
     )
     {
         $this->id = $id;

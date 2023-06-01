@@ -2,6 +2,7 @@
 
 namespace App\Controllers\User;
 
+use App\Redirect;
 use App\Services\User\Save\SaveUserRequest;
 use App\Services\User\Save\SaveUserService;
 use App\SessionManager;
@@ -21,13 +22,14 @@ class RegisterUserController
         return new View('user/register', []);
     }
 
-    public function store(): void
+    public function store(): Redirect
     {
         $request = new SaveUserRequest(
             $_POST['name'],
             $_POST['username'],
             $_POST['email'],
             $_POST['password'],
+            $_POST['repeatPassword'],
             $_POST['street'],
             $_POST['suite'],
             $_POST['city'],
@@ -42,6 +44,6 @@ class RegisterUserController
         $response = $this->saveUserService->execute($request);
         $user = $response->getUser();
         SessionManager::set($user->getId());
-        header('Location: /profile');
+        return new Redirect('/profile');
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Twig\Node\Expression\Binary\EndsWithBinary;
+
 class RouteAccessManager
 {
     private array $guestRoutes;
@@ -59,8 +61,11 @@ class RouteAccessManager
         return false;
     }
 
-    public function redirect(bool $isLoggedIn): void
+    public function redirect(bool $isLoggedIn): Redirect
     {
-        $isLoggedIn ? header('Location: /') : header('Location: /login');
+        if ($isLoggedIn){
+            return New Redirect('/');
+        }
+        return new Redirect('/login');
     }
 }

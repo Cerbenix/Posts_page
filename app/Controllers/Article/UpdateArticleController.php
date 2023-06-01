@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Article;
 
-use App\Services\Article\Create\CreateArticleRequest;
+use App\Redirect;
 use App\Services\Article\Show\ShowArticleRequest;
 use App\Services\Article\Show\ShowArticleService;
 use App\Services\Article\Update\UpdateArticleRequest;
@@ -31,12 +31,12 @@ class UpdateArticleController
         return new View('article/update', ['article' => $response->getArticle()]);
     }
 
-    public function update(array $variables): void
+    public function update(array $variables): Redirect
     {
         $articleId = (int)$variables['id'];
         $request = new UpdateArticleRequest($articleId, $_POST['title'], $_POST['body']);
         $response = $this->updateArticleService->execute($request);
         $article = $response->getArticle();
-        header('Location: /article/' . $article->getId() . '/edit');
+        return new Redirect('/article/' . $article->getId() . '/edit');
     }
 }

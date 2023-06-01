@@ -2,6 +2,8 @@
 
 namespace App\Controllers\User;
 
+use App\Redirect;
+use App\Response;
 use App\Services\User\Login\AuthenticationService;
 use App\SessionManager;
 use App\Views\View;
@@ -19,21 +21,20 @@ class AuthenticateUserController
         return New View('user/login', []);
     }
 
-    public function login():?View
+    public function login():Response
     {
         $user = $this->loginService->execute($_POST['username'], $_POST['password']);
         if ($user) {
             SessionManager::set($user->getId());
-            header('Location: /profile');
-            return null;
+            return new Redirect('/profile');
         } else {
             return New View('user/login', ['message' => 'Incorrect username or password']);
         }
     }
 
-    public function logout():void
+    public function logout():Redirect
     {
         SessionManager::remove();
-        header('Location: /');
+        return new Redirect('/');
     }
 }

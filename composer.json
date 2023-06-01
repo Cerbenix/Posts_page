@@ -13,6 +13,7 @@
         "ext-json": "*",
         "php-di/php-di": "^6.4",
         "vlucas/phpdotenv": "^5.5",
-        "doctrine/dbal": "^3.6"
+        "doctrine/dbal": "^3.6",
+        "ext-http": "*"
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Redirect;
 use App\Services\Comment\Create\CreateCommentRequest;
 use App\Services\Comment\Create\CreateCommentService;
 use App\Services\Comment\Delete\DeleteCommentRequest;
@@ -22,7 +23,7 @@ class CommentController
         $this->deleteCommentService = $deleteCommentService;
     }
 
-    public function store(array $variables): void
+    public function store(array $variables): Redirect
     {
         $articleId = (int)$variables['id'];
         $this->createCommentService->execute(new CreateCommentRequest(
@@ -30,15 +31,15 @@ class CommentController
             SessionManager::get(),
             $_POST['body']
         ));
-        header("Location: /article/$articleId");
+        return new Redirect("/article/$articleId");
     }
 
-    public function delete(array $variables): void
+    public function delete(array $variables):Redirect
     {
         $articleId = (int)$variables['id'];
         $commentId = (int)$variables['commentId'];
         $this->deleteCommentService->execute(new DeleteCommentRequest($commentId));
 
-        header("Location: /article/$articleId");
+        return new Redirect("/article/$articleId");
     }
 }

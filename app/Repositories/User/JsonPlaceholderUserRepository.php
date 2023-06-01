@@ -113,4 +113,9 @@ class JsonPlaceholderUserRepository implements UserRepository
     {
 
     }
+
+    public function findByEmail(string $email): ?User
+    {
+        return null;
+    }
 }
