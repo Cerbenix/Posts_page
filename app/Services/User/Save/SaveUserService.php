@@ -18,13 +18,6 @@ class SaveUserService
     }
     public function execute(SaveUserRequest $request): SaveUserResponse
     {
-        $userExists = $this->userRepository->findByEmail($request->getEmail());
-        if($userExists != null){
-            throw new InvalidArgumentException('User already exists');
-        }
-        if($request->getPassword() !== $request->getRepeatPassword()){
-            throw new InvalidArgumentException('Passwords do not match');
-        }
         $password = password_hash($request->getPassword(), PASSWORD_DEFAULT);
 
         $user = New User(

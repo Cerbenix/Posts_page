@@ -25,7 +25,6 @@ class SaveUserRequest
         string $username,
         string $email,
         string $password,
-        string $repeatPassword,
         string $street = null,
         string $suite = null,
         string $city = null,
@@ -51,7 +50,6 @@ class SaveUserRequest
         $this->companyCatchPhrase = $companyCatchPhrase;
         $this->companyBusinessServices = $companyBusinessServices;
         $this->password = $password;
-        $this->repeatPassword = $repeatPassword;
     }
 
     public function getEmail(): string
@@ -109,10 +107,6 @@ class SaveUserRequest
         return $this->password;
     }
 
-    public function getRepeatPassword(): string
-    {
-        return $this->repeatPassword;
-    }
 
     public function getWebsite(): ?string
     {

@@ -8,6 +8,7 @@ $response = $router->response();
 
 if($response instanceof \App\Views\View){
     echo $renderer->render($response);
+    unset($_SESSION['errors']);
 }
 if($response instanceof \App\Redirect){
     header('Location: ' . $response->getLocation());

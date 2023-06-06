@@ -20,7 +20,8 @@ class Renderer
 
     public function render(View $view): string
     {
-        $view->addVariables($this->sessionManager->get());
+        $this->twig->addGlobal('errors', $_SESSION['errors']);
+        $this->twig->addGlobal('sessionId', $this->sessionManager->get());
         return $this->twig->render($view->getTemplate() . '.twig', $view->getVariables());
     }
 }
